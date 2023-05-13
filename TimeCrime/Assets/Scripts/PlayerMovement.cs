@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     public Camera cam;
-    public Animator playerAnim;
 
     Vector2 movement;
     Vector2 mousePos;
@@ -27,10 +26,6 @@ public class PlayerMovement : MonoBehaviour
         movement.y = Input.GetAxisRaw("Vertical");
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-
-        //Tells animator, that player is moving
-        if (movement.magnitude != 0) playerAnim.SetBool("IsWalking", true);
-        else playerAnim.SetBool("IsWalking", false);
     }
 
     private void FixedUpdate()
