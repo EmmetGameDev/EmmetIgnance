@@ -424,8 +424,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 244b7063c95ad3a4b900496f457f06f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldOrLocalSpaceMovement: 0
-  moveSpeed: 5
+  worldOrLocalSpaceMovement: 1
+  stopDistance: 0.1
+  moveSpeed: 2
   cam: {fileID: 1035892917}
 --- !u!50 &2145573412
 Rigidbody2D:
