@@ -4,7 +4,6 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("When unchecked uses world, when checked uses local")]
     public bool worldOrLocalSpaceMovement = false;
-    public float stopDistance = 0.1f;
     [Header("")]
 
     public float moveSpeed = 5f;
@@ -35,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(worldOrLocalSpaceMovement && Vector2.Distance(rb.position, mousePos) > stopDistance) rb.MovePosition(rb.position + (Vector2)transform.TransformVector(movement * moveSpeed * Time.fixedDeltaTime));
+        if(worldOrLocalSpaceMovement) rb.MovePosition(rb.position + (Vector2)transform.TransformVector(movement * moveSpeed * Time.fixedDeltaTime));
         else rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
 
         Vector2 lookDir = mousePos - rb.position;
