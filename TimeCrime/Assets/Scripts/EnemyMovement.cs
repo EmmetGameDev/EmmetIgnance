@@ -14,6 +14,14 @@ public class EnemyMovement : MonoBehaviour
 
     public float updatePathTime = .5f;
 
+    [Range(0,1)]public float rotationSmoothing = .75f;
+
+    public Vector2[] patrolPoints;
+    public float nextPatrolPointDistance;
+    int currentPatrolPoint = 0;
+
+    public float gizmosSize = .2f;
+
     Path path;
     int currentWaypoint = 0;
     bool reachedEnd = false;
@@ -47,7 +55,8 @@ public class EnemyMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        PathfindingMovement();
+        PatrolingMovement();
+        //PathfindingMovement();
     }
 
     void PathfindingMovement()
@@ -60,18 +69,42 @@ public class EnemyMovement : MonoBehaviour
         }
         else reachedEnd = false;
 
-        Vector2 dir = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = dir * speed * Time.fixedDeltaTime;
-
-        rb.velocity = force;
+        MoveTowards(path.vectorPath[currentWaypoint]);
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
         if (distance < nextWaypointDistance) currentWaypoint++;
+    }
 
-        Vector3 diff = path.vectorPath[currentWaypoint] - transform.position;
+    void PatrolingMovement()
+    {
+        if (patrolPoints == null) return;
+        if (currentPatrolPoint >= patrolPoints.Length) currentPatrolPoint = 0;
 
-        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg -90f;
-        transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
+        MoveTowards(patrolPoints[currentPatrolPoint]);
+
+        float distance = Vector2.Distance(rb.position, patrolPoints[currentPatrolPoint]);
+        if (distance < nextPatrolPointDistance) currentPatrolPoint++;
+    }
+
+    void MoveTowards(Vector3 p)
+    {
+        //v is the normalized direction to the point
+        Vector2 v = ((Vector2)p - rb.position).normalized;
+        rb.velocity = v * speed * Time.fixedDeltaTime;
+
+        //code for rotating the enemy to the point
+        Vector2 lookDir = (Vector2)p - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        rb.rotation = Mathf.LerpAngle(angle, rb.rotation, rotationSmoothing);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        foreach (Vector2 p in patrolPoints)
+        {
+            Gizmos.DrawSphere(p, gizmosSize);
+        }
     }
 }
