@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        canMove = Vector2.Distance(rb.position, mousePos) >= stopDistance;
+        canMove = Vector2.Distance(rb.position, mousePos) >= stopDistance || movement < 0;
 
 
         movement = Input.GetAxisRaw("Vertical");

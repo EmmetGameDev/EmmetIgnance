@@ -918,7 +918,7 @@ GameObject:
   m_Component:
   - component: {fileID: 902526054}
   - component: {fileID: 902526055}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1121,7 +1121,7 @@ GameObject:
   - component: {fileID: 1179261863}
   - component: {fileID: 1179261864}
   - component: {fileID: 1179261865}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1226,7 +1226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1232473211}
   - component: {fileID: 1232473212}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1518,7 +1518,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1763284030}
   - component: {fileID: 1763284031}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1827,7 +1827,7 @@ GameObject:
   - component: {fileID: 1890579893}
   - component: {fileID: 1890579895}
   - component: {fileID: 1890579897}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1902,6 +1902,14 @@ MonoBehaviour:
   - {x: 2, y: 2}
   nextPatrolPointDistance: 0.5
   gizmosSize: 0.2
+  sightRange: 45
+  sightResolution: 100
+  eyesOffset: {x: 0, y: 0}
+  rayLenght: 100
+  sightLayerMask:
+    serializedVersion: 2
+    m_Bits: 759
+  debugRays: 1
 --- !u!50 &1890579896
 Rigidbody2D:
   serializedVersion: 4
@@ -2185,9 +2193,9 @@ GameObject:
   - component: {fileID: 2145573413}
   - component: {fileID: 2145573412}
   - component: {fileID: 2145573411}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -26,6 +26,13 @@ public class EnemyMovement : MonoBehaviour
     int currentWaypoint = 0;
     bool reachedEnd = false;
 
+    [Range(0, 90)]public float sightRange = 45f;
+    public int sightResolution = 8;
+    public Vector2 eyesOffset;
+    public float rayLenght = 100f;
+    public LayerMask sightLayerMask;
+    public bool debugRays = true;
+
     Seeker seeker;
     Rigidbody2D rb;
 
@@ -55,6 +62,7 @@ public class EnemyMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        CheckPlayer();
         PatrolingMovement();
         //PathfindingMovement();
     }
@@ -106,5 +114,27 @@ public class EnemyMovement : MonoBehaviour
         {
             Gizmos.DrawSphere(p, gizmosSize);
         }
+    }
+
+    bool CheckPlayer()
+    {
+        for (int i = 0; i <= sightResolution; i++)
+        {
+            float angle = Mathf.LerpAngle(-sightRange, sightRange, (float)i / sightResolution);
+            RaycastHit2D result = Physics2D.Raycast(rb.position + (Vector2)transform.TransformDirection(eyesOffset), transform.TransformDirection(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad) * rayLenght, Mathf.Cos(angle * Mathf.Deg2Rad) * rayLenght)), rayLenght, sightLayerMask);
+            Color c = Color.red;
+            if (debugRays)
+            {
+                if (result.transform.tag.Equals("Player")) c = Color.green;
+                //Debug.DrawRay(rb.position +(Vector2) transform.TransformDirection(eyesOffset), transform.TransformDirection(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad)*rayLenght, Mathf.Cos(angle * Mathf.Deg2Rad)*rayLenght)), c);
+                Debug.DrawRay(rb.position + (Vector2)transform.TransformDirection(eyesOffset), transform.TransformDirection(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad) * result.distance, Mathf.Cos(angle * Mathf.Deg2Rad) * result.distance)), c);
+                //Debug.DrawRay(rb.position + eyesOffset, result.point, c);
+            }
+        }
+        /*for(int i = 0; i < sightResolution; i++) 
+        {
+            Physics2D.Raycast(rb.position, Vector2.Lerp(Vector2.left, Vector2.right, sightRange/i/2/90));
+        }*/
+        return false;
     }
 }
