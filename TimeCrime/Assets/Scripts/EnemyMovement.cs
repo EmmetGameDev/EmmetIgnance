@@ -7,9 +7,9 @@ using Pathfinding;
 public class EnemyMovement : MonoBehaviour
 {
     public Transform target;
-    Vector2 previousTargetPosition;
 
-    public float speed;
+    public float chasingSpeed;
+    public float patrolingSpeed;
     public float nextWaypointDistance;
 
     public float updatePathTime = .5f;
@@ -33,6 +33,8 @@ public class EnemyMovement : MonoBehaviour
     public LayerMask sightLayerMask;
     public bool debugRays = true;
 
+    bool hasSeenPlayer = false;
+
     Seeker seeker;
     Rigidbody2D rb;
 
@@ -42,13 +44,11 @@ public class EnemyMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         InvokeRepeating("UpdatePath", 0f, updatePathTime);
-        seeker.StartPath(rb.position, target.position, OnCalculatedPath);
     }
 
     void UpdatePath()
     {
-        if (previousTargetPosition != (Vector2)target.position && seeker.IsDone()) seeker.StartPath(rb.position, target.position, OnCalculatedPath);
-        previousTargetPosition = target.position;
+        if (seeker.IsDone()) seeker.StartPath(rb.position, target.position, OnCalculatedPath);
     }
 
     void OnCalculatedPath(Path p)
@@ -62,9 +62,13 @@ public class EnemyMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        CheckPlayer();
-        PatrolingMovement();
-        //PathfindingMovement();
+        if (!hasSeenPlayer && CheckPlayer()) 
+        { 
+            hasSeenPlayer = true; 
+            UpdatePath(); 
+        }
+        if(hasSeenPlayer) PathfindingMovement();
+        else PatrolingMovement();
     }
 
     void PathfindingMovement()
@@ -77,7 +81,7 @@ public class EnemyMovement : MonoBehaviour
         }
         else reachedEnd = false;
 
-        MoveTowards(path.vectorPath[currentWaypoint]);
+        MoveTowards(path.vectorPath[currentWaypoint], chasingSpeed);
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
@@ -89,13 +93,13 @@ public class EnemyMovement : MonoBehaviour
         if (patrolPoints == null) return;
         if (currentPatrolPoint >= patrolPoints.Length) currentPatrolPoint = 0;
 
-        MoveTowards(patrolPoints[currentPatrolPoint]);
+        MoveTowards(patrolPoints[currentPatrolPoint], patrolingSpeed);
 
         float distance = Vector2.Distance(rb.position, patrolPoints[currentPatrolPoint]);
         if (distance < nextPatrolPointDistance) currentPatrolPoint++;
     }
 
-    void MoveTowards(Vector3 p)
+    void MoveTowards(Vector3 p, float speed)
     {
         //v is the normalized direction to the point
         Vector2 v = ((Vector2)p - rb.position).normalized;
@@ -118,6 +122,8 @@ public class EnemyMovement : MonoBehaviour
 
     bool CheckPlayer()
     {
+        bool o = false;
+
         for (int i = 0; i <= sightResolution; i++)
         {
             float angle = Mathf.LerpAngle(-sightRange, sightRange, (float)i / sightResolution);
@@ -125,7 +131,11 @@ public class EnemyMovement : MonoBehaviour
             Color c = Color.red;
             if (debugRays)
             {
-                if (result.transform.tag.Equals("Player")) c = Color.green;
+                if (result.transform.tag.Equals("Player")) 
+                { 
+                    c = Color.green; 
+                    o = true; 
+                }
                 //Debug.DrawRay(rb.position +(Vector2) transform.TransformDirection(eyesOffset), transform.TransformDirection(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad)*rayLenght, Mathf.Cos(angle * Mathf.Deg2Rad)*rayLenght)), c);
                 Debug.DrawRay(rb.position + (Vector2)transform.TransformDirection(eyesOffset), transform.TransformDirection(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad) * result.distance, Mathf.Cos(angle * Mathf.Deg2Rad) * result.distance)), c);
                 //Debug.DrawRay(rb.position + eyesOffset, result.point, c);
@@ -135,6 +145,6 @@ public class EnemyMovement : MonoBehaviour
         {
             Physics2D.Raycast(rb.position, Vector2.Lerp(Vector2.left, Vector2.right, sightRange/i/2/90));
         }*/
-        return false;
+        return o;
     }
 }
