@@ -35,8 +35,11 @@ public class EnemyMovement : MonoBehaviour
 
     bool hasSeenPlayer = false;
 
+    public EnemyFovRenderer fovRenderer;
+
     Seeker seeker;
     Rigidbody2D rb;
+
 
     void Start()
     {
@@ -123,12 +126,14 @@ public class EnemyMovement : MonoBehaviour
     bool CheckPlayer()
     {
         bool o = false;
-
+        List<Vector2> points = new List<Vector2>();
         for (int i = 0; i <= sightResolution; i++)
         {
             float angle = Mathf.LerpAngle(-sightRange, sightRange, (float)i / sightResolution);
-            RaycastHit2D result = Physics2D.Raycast(rb.position + (Vector2)transform.TransformDirection(eyesOffset), transform.TransformDirection(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad) * rayLenght, Mathf.Cos(angle * Mathf.Deg2Rad) * rayLenght)), rayLenght, sightLayerMask);
+            RaycastHit2D result = Physics2D.Raycast(rb.position + (Vector2)transform.TransformDirection(eyesOffset), transform.TransformDirection(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad)) * rayLenght), rayLenght, sightLayerMask);
             Color c = Color.red;
+            points.Add(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad)) * result.distance);
+            //points.Add(result.point);
             if (debugRays)
             {
                 if (result.transform.tag.Equals("Player")) 
@@ -137,10 +142,11 @@ public class EnemyMovement : MonoBehaviour
                     o = true; 
                 }
                 //Debug.DrawRay(rb.position +(Vector2) transform.TransformDirection(eyesOffset), transform.TransformDirection(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad)*rayLenght, Mathf.Cos(angle * Mathf.Deg2Rad)*rayLenght)), c);
-                Debug.DrawRay(rb.position + (Vector2)transform.TransformDirection(eyesOffset), transform.TransformDirection(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad) * result.distance, Mathf.Cos(angle * Mathf.Deg2Rad) * result.distance)), c);
+                Debug.DrawRay(rb.position + (Vector2)transform.TransformDirection(eyesOffset), transform.TransformDirection(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad)) * result.distance), c);
                 //Debug.DrawRay(rb.position + eyesOffset, result.point, c);
             }
         }
+        fovRenderer.UpdateFOV(points);
         /*for(int i = 0; i < sightResolution; i++) 
         {
             Physics2D.Raycast(rb.position, Vector2.Lerp(Vector2.left, Vector2.right, sightRange/i/2/90));
