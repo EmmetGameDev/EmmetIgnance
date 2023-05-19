@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TilesetAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -9407607, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 999308867, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1006096366, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1049040969, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1770892479, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -1374881364, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -1176851940, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1441752324, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -682184736, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -916088849, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -1789932383, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1991962223, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 805617503, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1935504754, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 364705208, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -891476863, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -1686299699, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1539950412, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -1833665412, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -1553316432, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -379338960, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1092056755, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1291643804, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -246541687, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1896610267, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -1347212031, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 861482559, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -6055948, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -389515672, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 384219801, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1736438210, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1958923517, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -324025746, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1275047488, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1731040429, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 38198011, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: 1781061242, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  - {fileID: -725168819, guid: 99203dcfc9b4fb44195f1dcb1e2da5c0, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - TutorialGarageTileset_29
+  - TutorialGarageTileset_28
+  - TutorialGarageTileset_23
+  - TutorialGarageTileset_22
+  - TutorialGarageTileset_18
+  - TutorialGarageTileset_21
+  - TutorialGarageTileset_19
+  - TutorialGarageTileset_20
+  - TutorialGarageTileset_16
+  - TutorialGarageTileset_27
+  - TutorialGarageTileset_17
+  - TutorialGarageTileset_26
+  - TutorialGarageTileset_14
+  - TutorialGarageTileset_25
+  - TutorialGarageTileset_15
+  - TutorialGarageTileset_24
+  - TutorialGarageTileset_12
+  - TutorialGarageTileset_13
+  - TutorialGarageTileset_10
+  - TutorialGarageTileset_11
+  - TutorialGarageTileset_9
+  - TutorialGarageTileset_8
+  - TutorialGarageTileset_3
+  - TutorialGarageTileset_2
+  - TutorialGarageTileset_1
+  - TutorialGarageTileset_0
+  - TutorialGarageTileset_7
+  - TutorialGarageTileset_6
+  - TutorialGarageTileset_5
+  - TutorialGarageTileset_4
+  - TutorialGarageTileset_30
+  - TutorialGarageTileset_31
+  - TutorialGarageTileset_32
+  - TutorialGarageTileset_33
+  - TutorialGarageTileset_34
+  - TutorialGarageTileset_35
+  - TutorialGarageTileset_36
+  - TutorialGarageTileset_37
+  m_RenderDataMap: {}
+  m_Tag: TilesetAtlas
+  m_IsVariant: 0
