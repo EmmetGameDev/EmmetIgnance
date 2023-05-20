@@ -36,6 +36,7 @@ public class EnemyMovement : MonoBehaviour
     bool hasSeenPlayer = false;
 
     public EnemyFovRenderer fovRenderer;
+    public int fovDivision = 2;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -67,7 +68,8 @@ public class EnemyMovement : MonoBehaviour
     {
         if (!hasSeenPlayer && CheckPlayer()) 
         { 
-            hasSeenPlayer = true; 
+            hasSeenPlayer = true;
+            fovRenderer.gameObject.SetActive(false);
             UpdatePath(); 
         }
         if(hasSeenPlayer) PathfindingMovement();
@@ -132,7 +134,7 @@ public class EnemyMovement : MonoBehaviour
             float angle = Mathf.LerpAngle(-sightRange, sightRange, (float)i / sightResolution);
             RaycastHit2D result = Physics2D.Raycast(rb.position + (Vector2)transform.TransformDirection(eyesOffset), transform.TransformDirection(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad)) * rayLenght), rayLenght, sightLayerMask);
             Color c = Color.red;
-            points.Add(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad)) * result.distance);
+            if(i%fovDivision == 0) points.Add(new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad)) * result.distance);
             //points.Add(result.point);
             if (debugRays)
             {

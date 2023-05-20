@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +7,13 @@ using UnityEngine.U2D;
 public class EnemyFovRenderer : MonoBehaviour
 {
     SpriteShapeController shapeController;
+    SpriteShapeRenderer shapeRenderer;
     Vector2 startPos;
 
     void Start()
     {
         shapeController = GetComponent<SpriteShapeController>();
+        shapeRenderer = GetComponent<SpriteShapeRenderer>();
         startPos = transform.parent.GetComponent<EnemyMovement>().eyesOffset;
     }
 
@@ -18,10 +21,19 @@ public class EnemyFovRenderer : MonoBehaviour
     {
         shapeController.spline.Clear();
         shapeController.spline.InsertPointAt(0, startPos);
+        shapeRenderer.enabled = true;
         for (int i = 0; i < points.Count - 1; i++)
         {
-            //shapeController.spline.SetPosition(i + 1, points[i]);
-            shapeController.spline.InsertPointAt(i + 1, points[i]);
+            try
+            {
+                //shapeController.spline.SetPosition(i + 1, points[i]);
+                shapeController.spline.InsertPointAt(i + 1, points[i]);
+            } catch (Exception)
+            {
+                shapeRenderer.enabled = false;
+            }
         }
+        shapeController.RefreshSpriteShape();
+        Debug.Log(points.Count);
     }
 }
