@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
@@ -19,9 +18,9 @@ public class EnemyFovRenderer : MonoBehaviour
 
     public void UpdateFOV(List<Vector2> points)
     {
+        shapeRenderer.enabled = true;
         shapeController.spline.Clear();
         shapeController.spline.InsertPointAt(0, startPos);
-        shapeRenderer.enabled = true;
         for (int i = 0; i < points.Count - 1; i++)
         {
             try
