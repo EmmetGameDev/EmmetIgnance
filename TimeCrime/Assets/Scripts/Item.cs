@@ -11,17 +11,15 @@ public class Item : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("dasdf");
         inventory = FindAnyObjectByType<Inventory>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("f");
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log(inventory.AddItem(this));
+            inventory.AddItem(this);
         }
     }
 
