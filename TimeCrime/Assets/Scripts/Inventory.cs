@@ -6,6 +6,9 @@ public class Inventory : MonoBehaviour
     public InventoryItem[] items;
     public GameObject[] slots;
     public int currentSlot = 0;
+    public InventoryItem itemInHand;
+    public GameObject itemInHandSlot;
+
     public RectTransform currentSlotUI;
     public float dropDistance = 2f;
     public LayerMask dropRaycastLayerMask;
@@ -17,10 +20,32 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
-        currentSlot += (int)Input.mouseScrollDelta.y;
+        currentSlot -= (int)Input.mouseScrollDelta.y;
         currentSlot = mod(currentSlot, slots.Length);
         currentSlotUI.position = slots[currentSlot].transform.position;
         if (Input.GetKeyDown(KeyCode.G) && items[currentSlot] != null) DropItem(items[currentSlot]);
+        if (Input.GetKeyDown(KeyCode.E) && (items[currentSlot] != null || itemInHand != null))
+        {
+            Transform newInHand = null;
+            Transform newCurrent = null;
+            if(slots[currentSlot].transform.childCount > 0) newInHand = slots[currentSlot].transform.GetChild(0);
+            if (itemInHandSlot.transform.childCount > 0) newCurrent = itemInHandSlot.transform.GetChild(0);
+            if (newInHand != null)
+            {
+                newInHand.parent = itemInHandSlot.transform;
+                newInHand.transform.localPosition = Vector3.zero + Vector3.up*25f;
+                itemInHand = newInHand.GetComponent<InventoryItem>();
+            }
+            else itemInHand = null;
+
+            if (newCurrent != null)
+            {
+                newCurrent.parent = slots[currentSlot].transform;
+                newCurrent.transform.localPosition = Vector3.zero + Vector3.up * 25f;
+                items[currentSlot] = newCurrent.GetComponent<InventoryItem>();
+            }
+            else items[currentSlot] = null;
+        }
     }
 
     public bool AddItem(Item item)
@@ -42,7 +67,8 @@ public class Inventory : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, dropDistance, dropRaycastLayerMask);
         GameObject g = Instantiate(item.itemPrefab);
         Debug.Log(hit.distance);
-        g.transform.position = hit.point;
+        if (hit) g.transform.position = hit.point;
+        else g.transform.position = transform.position + transform.up * dropDistance;
         Destroy(item.gameObject);
     }
 
